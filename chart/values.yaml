@@ -5,7 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  #docker pull ghcr.io/logscale-contrib/openebs-withlvm-init/container:1.0.0
+  repository: logscale-contrib/openebs-withlvm-init/container
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -49,7 +50,6 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
-
 
 nodeSelector: {}
 

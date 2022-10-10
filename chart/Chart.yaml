@@ -19,3 +19,8 @@ version: 1.0.0
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: "1.0.0"
+
+dependencies:
+  - name: openebs
+    version: "3.2.0"
+    repository: "https://openebs.github.io/charts"
