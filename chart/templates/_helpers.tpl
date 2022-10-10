@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "container-release-with-help-demo.name" -}}
+{{- define "openebs-withlvm-init.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "container-release-with-help-demo.fullname" -}}
+{{- define "openebs-withlvm-init.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "container-release-with-help-demo.chart" -}}
+{{- define "openebs-withlvm-init.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "container-release-with-help-demo.labels" -}}
-helm.sh/chart: {{ include "container-release-with-help-demo.chart" . }}
-{{ include "container-release-with-help-demo.selectorLabels" . }}
+{{- define "openebs-withlvm-init.labels" -}}
+helm.sh/chart: {{ include "openebs-withlvm-init.chart" . }}
+{{ include "openebs-withlvm-init.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "container-release-with-help-demo.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "container-release-with-help-demo.name" . }}
+{{- define "openebs-withlvm-init.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "openebs-withlvm-init.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "container-release-with-help-demo.serviceAccountName" -}}
+{{- define "openebs-withlvm-init.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "container-release-with-help-demo.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "openebs-withlvm-init.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
