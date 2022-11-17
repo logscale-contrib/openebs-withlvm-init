@@ -1,4 +1,4 @@
-FROM docker.io/almalinux:9.0-minimal
+FROM docker.io/almalinux:9.1-minimal
 
 RUN microdnf update -y ;\
     microdnf install nvme-cli util-linux lvm2  -y
