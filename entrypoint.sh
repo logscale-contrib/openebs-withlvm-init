@@ -5,7 +5,7 @@ echo END LIST OF NVME
 
 OUTPUT=$(vgscan 2> /dev/null | grep instancestore)
 PLATFORM="${1:-aws}"
-
+echo Platform is $PLATFORM
 if [ $PLATFORM == aws ]; then
   condition="Instance"
 elif [ $PLATFORM == azure ]; then

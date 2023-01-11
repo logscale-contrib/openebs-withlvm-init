@@ -3,13 +3,14 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
-
+config:
+  platform: aws
 image:
   #docker pull ghcr.io/logscale-contrib/openebs-withlvm-init/container:1.0.0
-  repository: logscale-contrib/openebs-withlvm-init/container
+  repository: ghcr.io/logscale-contrib/openebs-withlvm-init/container
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  # tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -45,11 +46,11 @@ resources:
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
-    cpu: 50m
-    memory: 64Mi
-  requests:
     cpu: 100m
     memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
 
 nodeSelector: {}
 

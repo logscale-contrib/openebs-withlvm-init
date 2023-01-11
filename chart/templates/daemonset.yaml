@@ -8,17 +8,6 @@ spec:
   selector:
     matchLabels:
       {{- include "openebs-withlvm-init.selectorLabels" . | nindent 6 }}
-  nodeSelector:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
-  {{- with .Values.affinity }}
-  affinity:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
-  {{- with .Values.tolerations }}
-  tolerations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -27,7 +16,6 @@ spec:
       {{- end }}
       labels:
         {{- include "openebs-withlvm-init.selectorLabels" . | nindent 8 }}
-      {{- with .Values.nodeSelector }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -39,8 +27,21 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          args: [{{ .Values.config.platform | quote}}]
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           securityContext:
             {{- toYaml .Values.podSecurityContext | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
