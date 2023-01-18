@@ -12,9 +12,7 @@ volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
 - matchLabelExpressions:
   - key: kubernetes.io/os
-    operator: In
     values:
       - linux
   - key: {{ .Values.allowedTopologies.key }}  
-    operator: In
     values: {{ .Values.allowedTopologies.values }}  
