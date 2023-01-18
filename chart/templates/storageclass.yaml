@@ -9,10 +9,3 @@ parameters:
 provisioner: local.csi.openebs.io
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
-allowedTopologies:
-- matchLabelExpressions:
-  - key: kubernetes.io/os
-    values:
-      - linux
-  - key: {{ .Values.allowedTopologies.key }}  
-    values: {{ .Values.allowedTopologies.values }}  
