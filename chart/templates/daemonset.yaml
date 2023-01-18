@@ -31,6 +31,14 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /dev/
+              name: local-disk
+              mountPropagation: "HostToContainer"
+      volumes:
+        - name: local-disk
+          hostPath:
+            path: /dev/            
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
