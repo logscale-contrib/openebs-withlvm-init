@@ -26,8 +26,8 @@ then
         done
 
 
-        echo "Creating VG=instancestore $disks"
-        vgcreate instancestore $disks
+        echo "Creating VG=instancestore $(printf '%s ' ${disks[@]})"
+        vgcreate instancestore $(printf '%s ' ${disks[@]})
     fi
 else
     echo "VG exists"
