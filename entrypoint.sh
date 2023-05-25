@@ -15,7 +15,7 @@ json_logger() {
   log_level=$1
   message=$2
   level=${log_levels[$log_level]}
-  timestamp=$(date --iso-8601=seconds)
+  timestamp=$(date -I'ns')
   jq --raw-input --compact-output \
     '{
       "level": '$level',
