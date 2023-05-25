@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   openebs-withlvm-init:
   - apiVersion: v2
+    appVersion: 2.4.0
+    created: "2023-05-25T16:29:22.383904707Z"
+    description: Install openEBS with lvm daemonset
+    digest: 86905034d1d01f3ce28ff2d086390c06a4484e5a6030fbfc18d494b2aef881ac
+    name: openebs-withlvm-init
+    type: application
+    urls:
+    - https://github.com/logscale-contrib/openebs-withlvm-init/releases/download/v2.4.0/openebs-withlvm-init-2.4.0.tgz
+    version: 2.4.0
+  - apiVersion: v2
     appVersion: 2.3.1
     created: "2023-05-25T16:19:11.552237028Z"
     description: Install openEBS with lvm daemonset
@@ -155,4 +165,4 @@ entries:
     urls:
     - https://github.com/logscale-contrib/openebs-withlvm-init/releases/download/v1.2.1/openebs-withlvm-init-1.2.1.tgz
     version: 1.2.1
-generated: "2023-05-25T16:19:11.551410318Z"
+generated: "2023-05-25T16:29:22.382909799Z"
