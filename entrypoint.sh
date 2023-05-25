@@ -67,10 +67,10 @@ then
     echo "pvcreate could not be found" | json_logger "FATAL"
     exit
 fi
-echo Platform is $PLATFORM | json_logger "INFO"
-nvme list | sed 's|\n|\\n|g' | json_logger "INFO"
-OUTPUT=$(vgscan 2> /dev/null | grep instancestore)
 PLATFORM="${1:-aws}"
+echo Platform is $PLATFORM | json_logger "INFO"
+nvme list --output-format=json | tr '^ *' ' ' |  tr '\n' ' ' | json_logger "INFO"
+OUTPUT=$(vgscan || true 2> /dev/null | grep instancestore)
 if [ $PLATFORM == aws ]; then
   condition="Instance"
 elif [ $PLATFORM == azure ]; then
@@ -84,7 +84,7 @@ fi
 
 if [ -z "$OUTPUT" ]
 then
-    echo "VG does not exist" | json_logger "INFO"
+    echo "VG does not exist this is normal if this is a new node" | json_logger "INFO"
     declare -r disks=($(nvme list | grep "$condition" | cut -f 1 -d ' '))
     if (( ${#disks[@]} )); then
         for i in "${disks[@]}"
@@ -98,7 +98,7 @@ then
         vgcreate instancestore $(printf '%s ' ${disks[@]}) | json_logger "INFO"
     fi
 else
-    echo "VG exists" | json_logger "INFO"
+    echo "VG exists that is unexpected if this is a new node" | json_logger "INFO"
 fi
 
 
