@@ -28,6 +28,12 @@ trap 'catch $? $LINENO' ERR
 
 catch() {
   echo "Error $1 occurred on $2" | json_logger "FATAL"
+  trap '' INT TERM
+  sleep infinity & pid=$!
+
+  while wait $pid; test $? -ge 128
+  do echo 'exiting' | json_logger "INFO"
+  done
   exit 1
 }
 
@@ -62,7 +68,7 @@ then
     exit
 fi
 echo Platform is $PLATFORM | json_logger "INFO"
-nvme list | json_logger "INFO"
+nvme list | sed 's|\n|\\n|g' | json_logger "INFO"
 OUTPUT=$(vgscan 2> /dev/null | grep instancestore)
 PLATFORM="${1:-aws}"
 if [ $PLATFORM == aws ]; then
