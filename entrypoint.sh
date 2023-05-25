@@ -18,7 +18,7 @@ json_logger() {
   timestamp=$(date -I'ns')
   jq --raw-input --compact-output \
     '{
-      "level": '$log_level',
+      "level": "'$log_level'",
       "timestamp": "'$timestamp'",
       "message": .
     }'
