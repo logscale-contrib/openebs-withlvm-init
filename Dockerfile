@@ -1,7 +1,7 @@
-FROM docker.io/almalinux:9.1-minimal-20221201
+FROM docker.io/alpine:3.18.0
 
-RUN microdnf update -y ;\
-    microdnf install nvme-cli util-linux lvm2 jq -y
+RUN apk update ;\
+    apk add nvme-cli lvm2 jq bash
 
 COPY entrypoint.sh /
 

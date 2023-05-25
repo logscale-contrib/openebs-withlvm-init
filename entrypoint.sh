@@ -1,6 +1,16 @@
 #!/bin/bash
 
 declare -A log_levels=( [FATAL]=0 [ERROR]=3 [WARNING]=4 [INFO]=6 [DEBUG]=7)
+if ! command -v date &> /dev/null
+then
+    echo "date could not be found"
+    exit
+fi
+if ! command -v jq &> /dev/null
+then
+    echo "jq could not be found"
+    exit
+fi
 json_logger() {
   log_level=$1
   message=$2
@@ -21,6 +31,36 @@ catch() {
   exit 1
 }
 
+if ! command -v nvme &> /dev/null
+then
+    echo "nvme could not be found" | json_logger "FATAL"
+    exit
+fi
+if ! command -v grep &> /dev/null
+then
+    echo "grep could not be found" | json_logger "FATAL"
+    exit
+fi
+if ! command -v cut &> /dev/null
+then
+    echo "cut could not be found" | json_logger "FATAL"
+    exit
+fi
+if ! command -v vgscan &> /dev/null
+then
+    echo "vgscan could not be found" | json_logger "FATAL"
+    exit
+fi
+if ! command -v vgcreate &> /dev/null
+then
+    echo "vgcreate could not be found" | json_logger "FATAL"
+    exit
+fi
+if ! command -v pvcreate &> /dev/null
+then
+    echo "pvcreate could not be found" | json_logger "FATAL"
+    exit
+fi
 echo Platform is $PLATFORM | json_logger "INFO"
 nvme list | json_logger "INFO"
 OUTPUT=$(vgscan 2> /dev/null | grep instancestore)
